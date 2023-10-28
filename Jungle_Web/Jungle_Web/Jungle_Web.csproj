@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Jungle_DataAccess\Jungle_DataAccess.csproj" />
-    <ProjectReference Include="..\Jungle_Models\Jungle_Models.csproj" />
   </ItemGroup>
 
 </Project>

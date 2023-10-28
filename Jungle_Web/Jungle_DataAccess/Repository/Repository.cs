@@ -35,33 +35,33 @@ namespace Jungle_DataAccess.Repository
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = null, bool isTracking = true)
         {
             throw new NotImplementedException();
-            //IQueryable<T> query = dbSet;
-            //if (filter != null)
-            //{
-            //    query = query.Where(filter);
-            //}
+            IQueryable<T> query = dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
 
-            //if (includeProperties != null)
-            //{
-            //    foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            //    {
-            //        // reproduit: _db.Product.Include(u => u.Category).Include(u => u.ApplicationType)
-            //        // mais passé en string
-            //        query = query.Include(includeProp);
-            //    }
-            //}
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    // reproduit: _db.Product.Include(u => u.Category).Include(u => u.ApplicationType)
+                    // mais passé en string
+                    query = query.Include(includeProp);
+                }
+            }
 
-            //if (orderBy != null)
-            //{
-            //    query = orderBy(query);
-            //}
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
 
-            //if (!isTracking)
-            //{
-            //    query = query.AsNoTracking();
-            //}
+            if (!isTracking)
+            {
+                query = query.AsNoTracking();
+            }
 
-            //return query.ToList();
+            return query.ToList();
         }
 
         public void Remove(T entity)

@@ -6,8 +6,7 @@ namespace Jungle_DataAccess.Data
 {
     public class JungleDbContext:DbContext
     {
-        public JungleDbContext(DbContextOptions<JungleDbContext> options) : base(options)
-        {    }
+       
 
         DbSet<Country> countries { get; set; }
         DbSet<Destination> destinations { get; set; }
@@ -15,6 +14,7 @@ namespace Jungle_DataAccess.Data
         DbSet<TravelRecommendation> travelRecommendations { get; set; }
         DbSet<Guide> guides { get; set; }
 
-
+        public JungleDbContext(DbContextOptions<JungleDbContext> options) : base(options)
+        { }
     }
 }
