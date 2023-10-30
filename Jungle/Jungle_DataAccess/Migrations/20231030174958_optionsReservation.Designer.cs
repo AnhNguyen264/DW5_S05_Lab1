@@ -4,6 +4,7 @@ using Jungle_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jungle_DataAccess.Migrations
 {
     [DbContext(typeof(JungleDbContext))]
-    partial class JungleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231030174958_optionsReservation")]
+    partial class optionsReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,7 +110,7 @@ namespace Jungle_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Options");
+                    b.ToTable("Option");
                 });
 
             modelBuilder.Entity("Jungle_Models.Models.Reservation", b =>
@@ -131,9 +133,6 @@ namespace Jungle_DataAccess.Migrations
 
                     b.Property<int>("NbsPersonnes")
                         .HasColumnType("int");
-
-                    b.Property<double>("PriceFinal")
-                        .HasColumnType("float");
 
                     b.Property<int>("TravelId")
                         .HasColumnType("int");
@@ -181,9 +180,6 @@ namespace Jungle_DataAccess.Migrations
 
                     b.Property<int?>("TravelRecommendationId")
                         .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int>("availablePlace")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -264,7 +260,7 @@ namespace Jungle_DataAccess.Migrations
 
             modelBuilder.Entity("Jungle_Models.Models.Travel", b =>
                 {
-                    b.HasOne("Jungle_Models.Models.Destination", "Destination")
+                    b.HasOne("Jungle_Models.Models.Destination", null)
                         .WithMany("Travels")
                         .HasForeignKey("DestinationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -285,8 +281,6 @@ namespace Jungle_DataAccess.Migrations
                         .HasForeignKey("Jungle_Models.Models.Travel", "TravelRecommendationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Destination");
 
                     b.Navigation("Guide");
 

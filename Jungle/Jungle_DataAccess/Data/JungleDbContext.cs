@@ -16,10 +16,9 @@ namespace Jungle_DataAccess.Data
         public DbSet<Travel> Travels { get; set; }
         public DbSet<TravelRecommendation> TravelRecommendations { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-
-        public JungleDbContext(DbContextOptions<JungleDbContext> options): base(options)
+        public DbSet<Option> Options { get; set; }
+        public JungleDbContext(DbContextOptions<JungleDbContext> options) : base(options)
         {
-
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

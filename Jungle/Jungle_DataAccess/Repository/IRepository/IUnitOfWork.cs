@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Jungle_DataAccess.Repository.IRepository
         IGuideRepository Guide { get; }
         ITravelRepository Travel { get; }
         ITravelRecommendationRepository TravelRecommendation { get; }
-
+        IReservationRepository Reservation { get; }
         void Save();
     }
 }

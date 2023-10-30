@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Jungle_Models.Models
 {
@@ -13,20 +10,19 @@ namespace Jungle_Models.Models
 
         public DateTime DateReservation { get; set; }
 
-       //public double PriceFinal { get; set; }
+        public double PriceFinal { get; set; }
 
         public int NbsPersonnes { get; set; }
 
         public bool IsConfirmed { get; set; }
 
-        //public List<String> Opstions { get; set; }
-
+        [ForeignKey(nameof(Travel))]
         public int TravelId { get; set; }
 
+        [ValidateNever]
         public Travel Travel { get; set; }
 
-
-
-
+        [ValidateNever]
+        public virtual List<Option>? Options { get; set; }
     }
 }

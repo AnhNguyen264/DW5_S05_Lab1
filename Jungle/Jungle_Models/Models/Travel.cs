@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -29,10 +30,12 @@ namespace Jungle_Models.Models
 
         [Range(7,21)]
         public int Duration { get; set; }
+        [Range (1,25)]
+        public int availablePlace { get; set; }
 
         [ForeignKey("Destination")]
         public int DestinationId { get; set; }
-        Destination Destination { get; set; }
+        public Destination Destination { get; set; }
 
         [ForeignKey("Guide")]
         public int GuideId { get; set; }
@@ -41,5 +44,8 @@ namespace Jungle_Models.Models
         [ForeignKey("TravelRecommendation")]
         public int? TravelRecommendationId { get; set; }
         public TravelRecommendation TravelRecommendation { get; set; }
+
+        [ValidateNever]
+        public virtual List<Reservation>? Reservation { get; set; }
     }
 }
