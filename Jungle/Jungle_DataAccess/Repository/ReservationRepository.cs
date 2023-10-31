@@ -52,8 +52,9 @@ namespace Jungle_DataAccess.Repository
             }
             // Calculer le nombre de places disponibles au départ
             int placesDisponibles = travel.availablePlace;
+
             // Obtenir toutes les réservations existantes pour le même voyage
-            var reservationsExistantes = _db.Reservations.Where(r => r.TravelId == entity.TravelId);
+            var reservationsExistantes = _db.Reservations.Where(r => r.TravelId == entity.TravelId).ToList();
 
             // Calculer le nombre total de personnes  dans les réservations existantes
             int nbPersonnesTravel = reservationsExistantes.Sum(r => r.NbsPersonnes);
@@ -66,17 +67,38 @@ namespace Jungle_DataAccess.Repository
             {
                 throw new InvalidOperationException("Vous ne pouvez pas réserver pour plus de personnes qu'il n'y a de places disponibles.");
             }
+
             if (travel.DepartureDate <= DateTime.Now)
             {
                 throw new InvalidOperationException("Impossible de réserver un voyage dont le départ est aujourd'hui ou dans le passé.");
-
             }
+
             var daysUntilDeparture = (travel.DepartureDate - DateTime.Now).Days;
             if(daysUntilDeparture <=14 )
             {
                 var originalPrice = travel.Price;
-                entity.PriceFinal = 0.85 * originalPrice;
+                entity.PriceFinal = (0.85 * originalPrice) * nbPersonnesReservationCourante; //15%
             }
+            if(nbPersonnesReservationCourante > 1)
+            {
+                for (int i = 2; i <= nbPersonnesReservationCourante; i++)
+                {
+                    entity.PriceFinal -= (0.20 * travel.Price);
+                }
+                //var price = entity.PriceFinal;
+                //entity.PriceFinal = 0.80 * price;
+            }
+            if(nbPersonnesReservationCourante >= 1)
+            {
+                entity.IsConfirmed = true;
+            }
+
+            if(entity.Options != null && entity.Options.Count()<=3)
+            {
+                double optionsCost = entity.Options.Select(o => o.Prix).Sum();
+                entity.PriceFinal += optionsCost;
+            }
+
             _db.Reservations.Add(entity);
         }
 

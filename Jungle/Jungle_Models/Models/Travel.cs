@@ -43,9 +43,13 @@ namespace Jungle_Models.Models
 
         [ForeignKey("TravelRecommendation")]
         public int? TravelRecommendationId { get; set; }
+        [ValidateNever]
         public TravelRecommendation TravelRecommendation { get; set; }
 
         [ValidateNever]
         public virtual List<Reservation>? Reservation { get; set; }
+
+        [ValidateNever]
+        public virtual List<Option> Options { get; set; }
     }
 }
